@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Board Home</title>
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+    <link rel="stylesheet" href="/board.css" />
+  </head>
+  <body>
+    <header>
+      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container">
+          <a class="navbar-brand" href="/home">JEONG TAE YEON</a>
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-toggle="collapse"
+            data-target="#navbarNav"
+            aria-controls="navbarNav"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+              <% if (user && user.level === 3) { %>
+              <li class="nav-item">
+                <a class="nav-link" href="/make">서버 컨테이너 현황</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/manage">전체 사용자 관리</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/board">게시판 관리</a>
+              </li>
+              <% } else { %>
+              <li class="nav-item">
+                <a class="nav-link" href="/make">컨테이너 만들기</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/makecontainer">내 컨테이너 관리</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/board">게시판</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/myinfo">내정보</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/">로그아웃</a>
+              </li>
+              <% } %>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </header>
+    <main class="container mt-5">
+      <!-- mt-4에서 mt-5로 조정하여 위 여백을 더 늘림 -->
+      <h2 class="text-center">최신 게시글</h2>
+      <a href="/createPost" class="btn btn-primary mb-2">글쓰기</a>
+      <div class="post-list">
+        <% posts.forEach(post => { %>
+        <div class="post card mb-3">
+          <div class="card-body">
+            <h3 class="card-title"><%= post.title %></h3>
+            <p class="card-text"><%= post.content %></p>
+            <p class="card-text">
+              작성자: <% if (post.author) { %><%= post.author.name %><% } else {
+              %>작성자 없음<% } %>
+            </p>
+            <% if (user && (user.level === 3 || (post.author &&
+            user._id.toString() === post.author._id.toString()))) { %>
+            <form
+              action="/editPost/<%= post._id %>"
+              method="GET"
+              class="d-inline"
+            >
+              <button type="submit" class="btn btn-primary">수정</button>
+            </form>
+            <form
+              action="/deletePost/<%= post._id %>"
+              method="POST"
+              class="d-inline"
+            >
+              <button type="submit" class="btn btn-danger">삭제</button>
+            </form>
+            <% } %>
+          </div>
+        </div>
+        <% }); %>
+      </div>
+    </main>
+  </body>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>게시판</title>
+    <link rel="stylesheet" href="/create.css" />
+  </head>
+  <body>
+    <header>
+      <h1>게시글 작성</h1>
+    </header>
+    <main>
+      <form action="/createPost" method="POST" class="container">
+        <div class="form-group">
+          <label for="title">제목:</label>
+          <input
+            type="text"
+            id="title"
+            name="title"
+            required
+            class="form-control"
+          />
+        </div>
+        <div class="form-group">
+          <label for="content">내용:</label>
+          <textarea
+            id="content"
+            name="content"
+            rows="4"
+            required
+            class="form-control"
+          ></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">글 작성</button>
+        <a href="/board" class="btn btn-secondary">취소</a>
+      </form>
+    </main>
+  </body>
+</html>

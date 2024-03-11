@@ -1,0 +1,80 @@
+/* style.css */
+
+body {
+  font-family: Arial, sans-serif;
+}
+
+.navbar-nav {
+  margin: 0 auto; /* 가운데 정렬을 위해 추가 */
+  display: flex; /* 내부 아이템을 가로로 정렬하기 위해 flex를 사용합니다. */
+  justify-content: center; /* 내부 아이템을 가운데 정렬합니다. */
+}
+
+.navbar-nav .nav-item {
+  margin-right: 20px; /* 각 네비게이션 항목 사이의 간격을 조정합니다. */
+}
+
+.navbar-nav .nav-link {
+  color: #000; /* 네비게이션 링크 색상 */
+}
+
+.navbar-brand {
+  font-weight: bold;
+  margin: 0 auto; /* 가운데 정렬을 위해 추가 */
+  display: block; /* 네비게이션 링크가 블록 요소로 표시되도록 설정합니다. */
+}
+
+.container {
+  margin-top: 50px;
+  max-width: 800px; /* 조정된 최대 너비 */
+  width: 80%; /* 너비를 조정합니다. */
+  margin: 0 auto; /* 가운데 정렬을 위해 추가 */
+}
+
+.card {
+  width: 100%; /* 너비를 조정합니다. */
+  border: none;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.card-body {
+  padding: 40px; /* 내부 패딩 조정 */
+}
+
+.card-title {
+  font-size: 28px; /* 제목 크기 키우기 */
+  font-weight: bold;
+  margin-bottom: 30px;
+}
+
+.form-label {
+  font-weight: bold;
+}
+
+.btn-primary {
+  background-color: #fff; /* 흰색 배경 */
+  color: #000; /* 검은색 텍스트 색상 */
+  border-color: #000; /* 검은색 테두리 색상 */
+}
+
+.btn-primary:hover {
+  background-color: #000; /* 검은색 배경 */
+  color: #fff; /* 흰색 텍스트 색상 */
+}
+
+.btn-primary:focus {
+  box-shadow: 0 0 0 0.2rem rgba(0, 0, 0, 0.5); /* 포커스시 검은색 테두리 효과 */
+}
+
+a[href="/signup"] {
+  text-decoration: none; /* 밑줄 제거 */
+  color: #007bff; /* 파란색 */
+  font-weight: bold; /* 강조 */
+}
+
+a[href="/"] {
+  text-decoration: none; /* 밑줄 제거 */
+  color: #007bff; /* 파란색 */
+  font-weight: bold; /* 강조 */
+}

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>내 컨테이너 정보</title>
+    <link rel="stylesheet" href="/mc.css" />
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap"
+    />
+  </head>
+  <body>
+    <header>
+      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container">
+          <a class="navbar-brand" href="/home">JEONG TAE YEON</a>
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-toggle="collapse"
+            data-target="#navbarNav"
+            aria-controls="navbarNav"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+              <li class="nav-item">
+                <a class="nav-link" href="/make">컨테이너 만들기</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/makecontainer">내 컨테이너 관리</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/board">게시판</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/myinfo">내정보</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/">로그아웃</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </header>
+    <h1>내 컨테이너 관리</h1>
+    <% if (userContainers.length === 0) { %>
+    <p>현재 생성된 컨테이너가 없습니다.</p>
+    <% } else { %> <% userContainers.forEach(container => { %>
+    <div class="container-box">
+      <div class="container-name">
+        컨테이너 이름: <%= container.containername %>
+      </div>
+      <div class="container-info">
+        <p>운영 체제: <%= container.operatingSystem %></p>
+        <% if (container.containerDuration) { %>
+        <p>
+          사용 기간: <%= container.containerDuration %> ~ <%=
+          container.containerDuration2 %>
+        </p>
+        <% } else { %>
+        <p>사용 기간: 정보 없음</p>
+        <% } %>
+        <p>접속 포트: <%= container.containerPort %></p>
+        <a
+          href="http://211.108.131.40:<%= container.containerPort %>"
+          class="connect-button"
+          target="_blank"
+          >컨테이너 접속</a
+        >
+        <a class="delete-button">컨테이너 삭제</a>
+      </div>
+    </div>
+    <% }); %> <% } %>
+  </body>
+</html>

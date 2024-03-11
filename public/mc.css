@@ -1,0 +1,95 @@
+/* mc.css */
+
+/* 전체 페이지 스타일 */
+body {
+  background-color: #ffffff; /* 배경색 설정 */
+  color: #333333; /* 텍스트 색상 설정 */
+}
+
+/* 헤더 스타일 */
+header {
+  margin-bottom: 20px;
+}
+
+/* 네비게이션 스타일 */
+.navbar {
+  background-color: #ffffff; /* 네비게이션 바 배경색 설정 */
+  border-bottom: 1px solid #dddddd; /* 네비게이션 바 아래 테두리 설정 */
+}
+
+.navbar-brand {
+  color: #333333; /* 로고 텍스트 색상 설정 */
+  font-weight: bold; /* 로고 텍스트 굵기 설정 */
+}
+
+.navbar-nav .nav-link {
+  color: #333333; /* 네비게이션 링크 텍스트 색상 설정 */
+}
+
+.navbar-nav .nav-link:hover {
+  color: #007bff; /* 네비게이션 링크 호버 시 텍스트 색상 설정 */
+}
+
+h1 {
+  margin-top: 50px;
+  text-align: center;
+}
+
+/* 컨테이너 박스 스타일 */
+body {
+  background-color: #f8f9fa; /* 배경색 설정 */
+  color: #333333; /* 텍스트 색상 설정 */
+  font-family: "Nunito", sans-serif; /* 폰트 설정 */
+}
+
+/* 컨테이너 박스 스타일 */
+.container-box {
+  border: 1px solid #dddddd; /* 테두리 설정 */
+  border-radius: 5px; /* 테두리 모서리를 둥글게 설정 */
+  padding: 20px; /* 안쪽 여백 설정 */
+  margin-top: 20px; /* 위쪽 여백 설정 */
+  margin-bottom: 20px; /* 아래 여백 설정 */
+  margin-left: 600px;
+  margin-right: 600px;
+}
+
+/* 컨테이너 이름 스타일 */
+.container-name {
+  font-size: 1.2rem; /* 폰트 크기 설정 */
+  font-weight: bold; /* 폰트 굵기 설정 */
+  margin-bottom: 10px; /* 아래 여백 설정 */
+}
+
+/* 컨테이너 정보 스타일 */
+.container-info {
+  font-size: 1rem; /* 폰트 크기 설정 */
+}
+
+/* 접속 버튼 스타일 */
+.connect-button {
+  display: inline-block; /* 인라인 블록 요소로 설정 */
+  padding: 8px 15px; /* 내부 여백 설정 */
+  background-color: #007bff; /* 배경색 설정 */
+  color: #ffffff; /* 텍스트 색상 설정 */
+  border: none; /* 테두리 없앰 */
+  border-radius: 5px; /* 테두리 모서리를 둥글게 설정 */
+  text-decoration: none; /* 텍스트에 밑줄 제거 */
+}
+
+.connect-button:hover {
+  background-color: #007bff; /* 호버 시 배경색 변경 */
+}
+
+.delete-button {
+  display: inline-block; /* 인라인 블록 요소로 설정 */
+  padding: 8px 15px; /* 내부 여백 설정 */
+  background-color: #eb1414; /* 배경색 설정 */
+  color: #ffffff; /* 텍스트 색상 설정 */
+  border: none; /* 테두리 없앰 */
+  border-radius: 5px; /* 테두리 모서리를 둥글게 설정 */
+  text-decoration: none; /* 텍스트에 밑줄 제거 */
+}
+
+.delete-button:hover {
+  background-color: #eb1414; /* 호버 시 배경색 변경 */
+}

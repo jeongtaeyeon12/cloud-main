@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>컨테이너</title>
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+    <link rel="stylesheet" href="/make.css" />
+  </head>
+  <body>
+    <header>
+      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container">
+          <a class="navbar-brand" href="/home">JEONG TAE YEON</a>
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-toggle="collapse"
+            data-target="#navbarNav"
+            aria-controls="navbarNav"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+              <li class="nav-item">
+                <a class="nav-link" href="/make">컨테이너 만들기</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/makecontainer">내 컨테이너 관리</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/board">게시판</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/myinfo">내정보</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/">로그아웃</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </header>
+    <div class="container mt-4">
+      <h1>컨테이너 만들기</h1>
+      <form action="/createContainer" method="post">
+        <div class="form-group">
+          <label for="operatingSystem">운영 체제를 선택하세요:</label>
+          <select
+            id="operatingSystem"
+            name="operatingSystem"
+            class="form-control"
+          >
+            <option value="ubuntu:20.04">Ubuntu 20.04</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="containername">컨테이너 이름:</label>
+          <input
+            type="text"
+            id="containername"
+            name="containername"
+            required
+            pattern="[a-z]*"
+            title="영어로만 입력하세요"
+            class="form-control"
+          />
+          <% if (typeof errorContainerName !== 'undefined') { %>
+          <p style="color: red"><%= errorContainerName %></p>
+          <% } %>
+        </div>
+        <div class="form-group">
+          <label for="containerDuration">컨테이너 사용 기간:</label>
+          <input
+            type="date"
+            id="containerDuration"
+            name="containerDuration"
+            class="form-control"
+          />
+          <span>부터</span>
+          <input
+            type="date"
+            id="containerDuration2"
+            name="containerDuration2"
+            class="form-control"
+          />
+          <span>까지</span>
+        </div>
+        <div class="form-group">
+          <label for="containerPort">컨테이너 포트(30000-30027):</label>
+          <input
+            type="number"
+            id="containerPort"
+            name="containerPort"
+            min="30000"
+            max="39999"
+            required
+            class="form-control"
+          />
+        </div>
+        <div>
+          <button
+            type="submit"
+            name="action"
+            value="create"
+            class="btn btn-primary"
+          >
+            Create
+          </button>
+          <button
+            type="submit"
+            name="action"
+            value="cancel"
+            class="btn btn-secondary"
+          >
+            Cancel
+          </button>
+          <% if (typeof errorContainerName !== 'undefined') { %>
+          <p class="error-message"><%= errorContainerName %></p>
+          <% } else if (typeof errorContainerPort !== 'undefined') { %>
+          <p class="error-message"><%= errorContainerPort %></p>
+          <% } %>
+        </div>
+      </form>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  </body>
+</html>

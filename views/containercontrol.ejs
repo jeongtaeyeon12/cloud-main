@@ -3,16 +3,12 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>내 정보</title>
-    <link rel="stylesheet" href="/mi.css" />
+    <title>Home page</title>
     <link
       rel="stylesheet"
       href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
     />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap"
-    />
+    <link rel="stylesheet" href="/cc.css" />
   </head>
   <body>
     <header>
@@ -46,8 +42,8 @@
               <li class="nav-item">
                 <a class="nav-link" href="/board">게시판</a>
               </li>
-              <li class="nav-item active">
-                <a class="nav-link" href="/myinfo">내 정보</a>
+              <li class="nav-item">
+                <a class="nav-link" href="/myinfo">내정보</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="/">로그아웃</a>
@@ -58,45 +54,36 @@
       </nav>
     </header>
     <div class="container mt-5">
-      <h1>내 정보</h1>
-      <div class="info-box">
-        <p><span class="bold">이름:</span> <%= user.name %></p>
-        <p><span class="bold">권한:</span> <%= user.level %></p>
+      <h1 class="text-center">컨테이너 생성 정보</h1>
+      <div class="row justify-content-center">
+        <div class="col-md-8">
+          <table class="table table-sm">
+            <thead>
+              <tr>
+                <th scope="col">컨테이너 이름</th>
+                <th scope="col">컨테이너 포트</th>
+                <th scope="col">컨테이너 기간</th>
+                <th scope="col">포트 상태</th>
+                <!-- 수정된 열 추가 -->
+              </tr>
+            </thead>
+            <tbody>
+              <% for (let i = 30000; i <= 30027; i++) { %> <% const container =
+              containers.find(item => item.containerPort === i); %>
+              <tr>
+                <td><%= container ? container.containername : '' %></td>
+                <td><%= i %></td>
+                <td>
+                  <%= container ? container.containerDuration + ' ~ ' +
+                  container.containerDuration2 : '' %>
+                </td>
+                <td><%= container ? '사용 중' : '사용 가능' %></td>
+              </tr>
+              <% } %>
+            </tbody>
+          </table>
+        </div>
       </div>
-      <h2>비밀번호 변경</h2>
-      <form action="/changePassword" method="POST">
-        <div class="form-group">
-          <label for="currentPassword">현재 비밀번호</label>
-          <input
-            type="password"
-            id="currentPassword"
-            name="currentPassword"
-            required
-            class="form-control"
-          />
-        </div>
-        <div class="form-group">
-          <label for="newPassword">새 비밀번호</label>
-          <input
-            type="password"
-            id="newPassword"
-            name="newPassword"
-            required
-            class="form-control"
-          />
-        </div>
-        <div class="form-group">
-          <label for="confirmNewPassword">새 비밀번호 확인</label>
-          <input
-            type="password"
-            id="confirmNewPassword"
-            name="confirmNewPassword"
-            required
-            class="form-control"
-          />
-        </div>
-        <button type="submit" class="btn btn-primary">변경</button>
-      </form>
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>

@@ -19,7 +19,7 @@ header {
 
 .navbar-brand {
   color: #333333; /* 로고 텍스트 색상 설정 */
-  font-weight: bold; /* 로고 텍스트 굵기 설정 */
+  /* font-weight: bold;  로고 텍스트 굵기 설정 */
 }
 
 .navbar-nav .nav-link {

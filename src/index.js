@@ -10,6 +10,7 @@ const Container = require("./container.js");
 const { NodeSSH } = require("node-ssh");
 const ssh = new NodeSSH();
 const SSHClient = require("ssh2").Client;
+const path = require("path");
 
 const app = express();
 
@@ -31,6 +32,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.set("view engine", "ejs");
 app.use(express.static("public"));
+app.use(express.static(path.join(__dirname, "../photo")));
 
 app.get("/", (req, res) => {
   res.render("login");
@@ -206,11 +208,36 @@ app.get("/redirectUser", (req, res) => {
 });
 
 // 홈 페이지
-app.get("/home", (req, res) => {
-  if (!req.isAuthenticated()) {
-    return res.redirect("/login");
+app.get("/home", async (req, res) => {
+  try {
+    if (!req.isAuthenticated()) {
+      return res.redirect("/login");
+    }
+
+    // 모든 컨테이너 데이터 가져오기
+    const containers = await Container.find();
+
+    res.render("home", { user: req.user, containers }); // 컨테이너 데이터를 home 페이지로 전달
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Server Error");
   }
-  res.render("home", { user: req.user });
+});
+
+app.get("/containercontrol", async (req, res) => {
+  try {
+    if (!req.isAuthenticated()) {
+      return res.redirect("/login");
+    }
+
+    // 모든 컨테이너 데이터 가져오기
+    const containers = await Container.find();
+
+    res.render("containercontrol", { user: req.user, containers }); // 컨테이너 데이터를 home 페이지로 전달
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Server Error");
+  }
 });
 
 // 어드민 페이지

@@ -50,11 +50,27 @@ app.get("/make", (req, res) => {
   res.render("make");
 });
 
+app.get("/setting", (req, res) => {
+  res.render("setting");
+});
+
 app.get("/admin", (req, res) => {
   if (!req.isAuthenticated()) {
     return res.redirect("/login");
   }
   res.render("admin", { user: req.user });
+});
+
+// admin board
+app.get("/adminboard", async (req, res) => {
+  try {
+    // 게시글 목록을 데이터베이스에서 가져와서 게시판 페이지에 전달
+    const posts = await Post.find().populate("author", "name");
+    res.render("adminboard", { posts, user: req.user });
+  } catch (error) {
+    console.error("게시글 목록을 불러오는 중 오류 발생:", error);
+    res.status(500).send("게시글 목록을 불러오는 중 오류가 발생했습니다.");
+  }
 });
 
 // 게시판 목록 조회 관련
@@ -234,6 +250,22 @@ app.get("/containercontrol", async (req, res) => {
     const containers = await Container.find();
 
     res.render("containercontrol", { user: req.user, containers }); // 컨테이너 데이터를 home 페이지로 전달
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Server Error");
+  }
+});
+
+app.get("/admincontainer", async (req, res) => {
+  try {
+    if (!req.isAuthenticated()) {
+      return res.redirect("/login");
+    }
+
+    // 모든 컨테이너 데이터 가져오기
+    const containers = await Container.find();
+
+    res.render("admincontainer", { user: req.user, containers }); // 컨테이너 데이터를 home 페이지로 전달
   } catch (err) {
     console.error(err);
     res.status(500).send("Server Error");

@@ -15,7 +15,7 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/admin-lte/3.1.0/css/adminlte.min.css"
     />
     <!-- Custom styles -->
-    <link rel="stylesheet" href="/admin.css" />
+    <link rel="stylesheet" href="/ac.css" />
   </head>
   <body class="hold-transition sidebar-mini">
     <div class="wrapper">
@@ -100,85 +100,40 @@
 
       <!-- Content Wrapper. Contains page content -->
       <div class="content-wrapper">
-        <!-- Main content -->
         <section class="content">
-          <div class="container-fluid">
-            <h1>Dashboard(Grafana)</h1>
+            <div class="container-fluid">
+              <h1>컨테이너 관리</h1>
+            <div class="row justify-content-center">
+              <div class="col-md-8">
+                <table class="table table-sm">
+                  <thead>
+                    <tr>
+                      <th scope="col">컨테이너 이름</th>
+                      <th scope="col">컨테이너 포트</th>
+                      <th scope="col">컨테이너 기간</th>
+                      <th scope="col">포트 상태</th>
+                      <!-- 수정된 열 추가 -->
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <% for (let i = 30000; i <= 30027; i++) { %> <% const container =
+                    containers.find(item => item.containerPort === i); %>
+                    <tr>
+                      <td><%= container ? container.containername : '' %></td>
+                      <td><%= i %></td>
+                      <td>
+                        <%= container ? container.containerDuration + ' ~ ' +
+                        container.containerDuration2 : '' %>
+                      </td>
+                      <td><%= container ? '사용 중' : '사용 가능' %></td>
+                    </tr>
+                    <% } %>
+                  </tbody>
+                </table>
+              </div>
+            </div>
           </div>
-          <iframe
-            src="http://192.168.1.10:3000/d-solo/dxhC7pRSz/kubernetes-monitering?orgId=1&refresh=5s&from=1710816028807&to=1710816328807&panelId=20"
-            width="1562"
-            height="200"
-            frameborder="0"
-          ></iframe>
-          <iframe
-            src="http://192.168.1.10:3000/d-solo/dxhC7pRSz/kubernetes-monitering?orgId=1&refresh=5s&from=1710816064341&to=1710816364341&panelId=24"
-            width="518"
-            height="200"
-            frameborder="0"
-          ></iframe>
-          <iframe
-            src="http://192.168.1.10:3000/d-solo/dxhC7pRSz/kubernetes-monitering?orgId=1&refresh=5s&from=1710816077587&to=1710816377587&panelId=26"
-            width="518"
-            height="200"
-            frameborder="0"
-          ></iframe>
-          <iframe
-            src="http://192.168.1.10:3000/d-solo/dxhC7pRSz/kubernetes-monitering?orgId=1&refresh=5s&from=1710816090955&to=1710816390955&panelId=28"
-            width="518"
-            height="200"
-            frameborder="0"
-          ></iframe>
-          <iframe
-            src="http://192.168.1.10:3000/d-solo/dxhC7pRSz/kubernetes-monitering?orgId=1&refresh=5s&from=1710814665313&to=1710814965313&panelId=22"
-            width="950"
-            height="230"
-            frameborder="0"
-          ></iframe>
-          <iframe
-            src="http://192.168.1.10:3000/d-solo/dxhC7pRSz/kubernetes-monitering?orgId=1&refresh=5s&from=1710815369815&to=1710815669815&panelId=10"
-            width="609"
-            height="230"
-            frameborder="0"
-          ></iframe>
-          <iframe
-            src="http://192.168.1.10:3000/d-solo/dxhC7pRSz/kubernetes-monitering?orgId=1&refresh=5s&from=1710815414098&to=1710815714098&panelId=8"
-            width="950"
-            height="230"
-            frameborder="0"
-          ></iframe>
-          <iframe
-            src="http://192.168.1.10:3000/d-solo/dxhC7pRSz/kubernetes-monitering?orgId=1&refresh=5s&from=1710815876117&to=1710816176117&panelId=30"
-            width="200"
-            height="230"
-            frameborder="0"
-          ></iframe>
-          <iframe
-            src="http://192.168.1.10:3000/d-solo/dxhC7pRSz/kubernetes-monitering?orgId=1&refresh=5s&from=1710815942489&to=1710816242489&panelId=34"
-            width="200"
-            height="230"
-            frameborder="0"
-          ></iframe>
-          <iframe
-            src="http://192.168.1.10:3000/d-solo/dxhC7pRSz/kubernetes-monitering?orgId=1&refresh=5s&from=1710815960965&to=1710816260965&panelId=32"
-            width="200"
-            height="230"
-            frameborder="0"
-          ></iframe>
-          <!-- /.container-fluid -->
-        </section>
-        <!-- /.content -->
-      </div>
-      <!-- /.content-wrapper -->
-
-      <!-- Control Sidebar -->
-      <aside class="control-sidebar control-sidebar-dark">
-        <!-- Control sidebar content goes here -->
-      </aside>
-      <!-- /.control-sidebar -->
-
-      <!-- Main Footer -->
-  
+    </div>
     <!-- ./wrapper -->
 
     <!-- REQUIRED SCRIPTS -->

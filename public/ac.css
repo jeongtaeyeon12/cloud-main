@@ -1,0 +1,7 @@
+h1 {
+  font-size: 2rem; /* 제목 폰트 크기 설정 */
+  font-weight: bold; /* 제목 폰트 굵기 설정 */
+  margin-bottom: 20px; /* 제목 아래 여백 설정 */
+  text-align: center;
+  padding-top: 20px;
+}

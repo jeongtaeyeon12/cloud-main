@@ -93,3 +93,19 @@ body {
 .delete-button:hover {
   background-color: #eb1414; /* 호버 시 배경색 변경 */
 }
+
+/* 모바일 화면에서의 조정 */
+@media only screen and (max-width: 768px) {
+  /* 컨테이너 박스 스타일 */
+  .container-box {
+    margin-left: 20px; /* 좌우 여백 축소 */
+    margin-right: 20px;
+  }
+
+  /* 접속 및 삭제 버튼 스타일 */
+  .connect-button,
+  .delete-button {
+    width: auto; /* 버튼의 가로 너비를 자동으로 설정하여 텍스트에 맞게 */
+    margin-bottom: 5px; /* 아래 여백 축소 */
+  }
+}

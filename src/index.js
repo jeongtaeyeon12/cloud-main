@@ -54,6 +54,10 @@ app.get("/setting", (req, res) => {
   res.render("setting");
 });
 
+app.get("/admincommand", (req, res) => {
+  res.render("admincommand");
+});
+
 app.get("/admin", (req, res) => {
   if (!req.isAuthenticated()) {
     return res.redirect("/login");
@@ -516,6 +520,62 @@ app.get("/makecontainer", async (req, res) => {
     console.error("내 컨테이너 정보 조회 중 오류 발생:", error);
     res.status(500).send("내 컨테이너 정보 조회 중 오류가 발생했습니다.");
   }
+});
+
+const sshClient = new SSHClient();
+let isSSHConnected = false; // 변수 정의 및 초기화
+
+app.get("/admincommand", (req, res) => {
+  res.render("admincommand");
+});
+
+app.get("/connect", (req, res) => {
+  if (!isSSHConnected) {
+    sshClient.on("ready", () => {
+      console.log("SSH connection established");
+      res.send("SSH connection established");
+      isSSHConnected = true;
+    });
+
+    sshClient.on("error", (err) => {
+      console.error("SSH connection error:", err);
+      res.status(500).send("SSH connection error");
+    });
+
+    sshClient.connect({
+      host: "192.168.56.1",
+      port: 60010,
+      username: "root",
+      password: "vagrant",
+    });
+  } else {
+    console.log("SSH connection already established");
+    // 이미 연결된 경우에는 두 번째 응답을 보내지 않습니다.
+  }
+});
+
+app.get("/command/:command", (req, res) => {
+  const command = req.params.command;
+
+  sshClient.exec(command, (err, stream) => {
+    if (err) {
+      console.error("Command execution error:", err);
+      res.status(500).send("Error executing command");
+      return;
+    }
+
+    let result = "";
+
+    stream
+      .on("data", (data) => {
+        console.log("Received:", data.toString());
+        result += data.toString();
+      })
+      .on("close", () => {
+        console.log("Stream closed");
+        res.send(result);
+      });
+  });
 });
 
 const port = 5000;

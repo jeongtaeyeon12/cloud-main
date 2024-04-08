@@ -34,6 +34,29 @@ app.set("view engine", "ejs");
 app.use(express.static("public"));
 app.use(express.static(path.join(__dirname, "../photo")));
 
+app.use((req, res, next) => {
+  if (req.headers.host === "grafana.jty.kr") {
+    // grafana.jty.kr 도메인으로 들어오는 요청은 localhost:3000으로 리디렉션합니다.
+    const options = {
+      hostname: "localhost",
+      port: 3000,
+      path: req.url,
+      method: req.method,
+      headers: req.headers,
+    };
+
+    const proxyReq = http.request(options, (proxyRes) => {
+      res.writeHead(proxyRes.statusCode, proxyRes.headers);
+      proxyRes.pipe(res, { end: true });
+    });
+
+    req.pipe(proxyReq, { end: true });
+  } else {
+    // 다른 도메인으로 들어오는 요청은 그대로 전달합니다.
+    next();
+  }
+});
+
 app.get("/", (req, res) => {
   res.render("login");
 });

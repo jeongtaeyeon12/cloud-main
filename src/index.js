@@ -43,6 +43,7 @@ app.use((req, res, next) => {
       path: req.url,
       method: req.method,
       headers: req.headers,
+      rejectUnauthorized: false, // SSL 인증서 검증 무시
     };
 
     // HTTPS 모듈을 사용하여 요청을 보냄

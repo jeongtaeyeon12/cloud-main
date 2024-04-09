@@ -39,7 +39,7 @@ app.use((req, res, next) => {
   if (req.headers.host === "grafana.jty.kr") {
     // grafana.jty.kr 도메인으로 들어오는 요청은 localhost:3000으로 리디렉션합니다.
     const options = {
-      hostname: "localhost",
+      hostname: "192.168.1.10",
       port: 3000,
       path: req.url,
       method: req.method,

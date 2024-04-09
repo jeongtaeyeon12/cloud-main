@@ -11,7 +11,7 @@ const { NodeSSH } = require("node-ssh");
 const ssh = new NodeSSH();
 const SSHClient = require("ssh2").Client;
 const path = require("path");
-const http = require("http");
+const https = require("https");
 
 const app = express();
 
@@ -37,7 +37,6 @@ app.use(express.static(path.join(__dirname, "../photo")));
 
 app.use((req, res, next) => {
   if (req.headers.host === "grafana.jty.kr") {
-    // grafana.jty.kr 도메인으로 들어오는 요청은 localhost:3000으로 리디렉션합니다.
     const options = {
       hostname: "192.168.1.10",
       port: 3000,
@@ -46,14 +45,14 @@ app.use((req, res, next) => {
       headers: req.headers,
     };
 
-    const proxyReq = http.request(options, (proxyRes) => {
+    // HTTPS 모듈을 사용하여 요청을 보냄
+    const proxyReq = https.request(options, (proxyRes) => {
       res.writeHead(proxyRes.statusCode, proxyRes.headers);
       proxyRes.pipe(res, { end: true });
     });
 
     req.pipe(proxyReq, { end: true });
   } else {
-    // 다른 도메인으로 들어오는 요청은 그대로 전달합니다.
     next();
   }
 });

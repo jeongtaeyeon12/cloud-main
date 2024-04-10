@@ -12,6 +12,7 @@ const ssh = new NodeSSH();
 const SSHClient = require("ssh2").Client;
 const path = require("path");
 const https = require("https");
+const fs = require("fs");
 
 const app = express();
 
@@ -35,28 +36,33 @@ app.set("view engine", "ejs");
 app.use(express.static("public"));
 app.use(express.static(path.join(__dirname, "../photo")));
 
-app.use((req, res, next) => {
-  if (req.headers.host === "grafana.jty.kr") {
-    const options = {
-      hostname: "192.168.1.10",
-      port: 3000,
-      path: req.url,
-      method: req.method,
-      headers: req.headers,
-      rejectUnauthorized: false, // SSL 인증서 검증 무시
-    };
+const proxyServer = https.createServer(
+  {
+    key: fs.readFileSync("privkey.pem"),
+    cert: fs.readFileSync("fullchain.pem"),
+  },
+  (req, res) => {
+    if (req.headers.host === "grafana.jty.kr") {
+      const options = {
+        hostname: "192.168.1.10",
+        port: 3000,
+        path: req.url,
+        method: req.method,
+        headers: req.headers,
+      };
 
-    // HTTPS 모듈을 사용하여 요청을 보냄
-    const proxyReq = https.request(options, (proxyRes) => {
-      res.writeHead(proxyRes.statusCode, proxyRes.headers);
-      proxyRes.pipe(res, { end: true });
-    });
+      // HTTPS 모듈을 사용하여 요청을 보냄
+      const proxyReq = https.request(options, (proxyRes) => {
+        res.writeHead(proxyRes.statusCode, proxyRes.headers);
+        proxyRes.pipe(res, { end: true });
+      });
 
-    req.pipe(proxyReq, { end: true });
-  } else {
-    next();
+      req.pipe(proxyReq, { end: true });
+    } else {
+      next();
+    }
   }
-});
+);
 
 app.get("/", (req, res) => {
   res.render("login");

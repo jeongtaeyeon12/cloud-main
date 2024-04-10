@@ -11,7 +11,7 @@ const { NodeSSH } = require("node-ssh");
 const ssh = new NodeSSH();
 const SSHClient = require("ssh2").Client;
 const path = require("path");
-const http = require("http");
+const https = require("https");
 
 const app = express();
 
@@ -38,15 +38,15 @@ app.use(express.static(path.join(__dirname, "../photo")));
 app.use((req, res, next) => {
   if (req.headers.host === "grafana.jty.kr") {
     const options = {
-      hostname: "211.108.131.40",
-      port: 3000, // HTTP 포트는 80
+      hostname: "192.168.55.121",
+      port: 3000,
       path: req.url,
       method: req.method,
       headers: req.headers,
+      rejectUnauthorized: false, // SSL 인증서 검증 무시
     };
-
-    // HTTP 모듈을 사용하여 요청을 보냄
-    const proxyReq = http.request(options, (proxyRes) => {
+    // HTTPS 모듈을 사용하여 요청을 보냄
+    const proxyReq = https.request(options, (proxyRes) => {
       res.writeHead(proxyRes.statusCode, proxyRes.headers);
       proxyRes.pipe(res, { end: true });
     });

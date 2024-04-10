@@ -38,7 +38,7 @@ app.use(express.static(path.join(__dirname, "../photo")));
 app.use((req, res, next) => {
   if (req.headers.host === "grafana.jty.kr") {
     const options = {
-      hostname: "192.168.1.10",
+      hostname: "211.108.131.40",
       port: 3000, // HTTP 포트는 80
       path: req.url,
       method: req.method,
